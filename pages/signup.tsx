@@ -21,9 +21,21 @@ const SignUp = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-gray-900">Sign Up</h1>
+    <div className="min-h-screen bg-gray-100 flex items-center justify-center">
+      <div className="bg-white p-8 w-full max-w-md">
+        <div className="flex justify-between mb-6">
+          {/* Sign In Link */}
+          <Link href="/signin" className="flex-1 text-3xl text-center px-4 py-2 rounded-lg bg-gray-200 text-gray-500">
+              Sign In
+            
+          </Link>
+
+          {/* Sign Up Link */}
+          <Link href="/signup" className="flex-1 text-3xl font-bold text-center px-4 py-2 rounded-lg">
+              Sign Up
+          </Link>
+        </div>
+
         {error && <p className="text-red-500 text-center mb-4">{error}</p>}
         <form onSubmit={handleSignUp} className="space-y-6">
           <div>
@@ -54,13 +66,13 @@ const SignUp = () => {
           </button>
         </form>
 
-        {/* Inline Text and Link */}
-        <div className="text-center mt-4 text-gray-600 text-xs inline-flex space-x-1 justify-center">
-          <p>Already have an account?</p>
-          <Link href="/signin"
-             className="text-green-500 hover:text-green-600 font-semibold">Sign In
+        <p className="mt-4 text-center text-gray-600">By clicking "Sign up," you agree to our Terms of Use and our Privacy Policy.</p>
+        <p className="mt-4 text-center text-gray-600">
+          Already have an account?{' '}
+          <Link href="/signin" className="text-green-500 hover:underline">
+            Sign In
           </Link>
-        </div>
+        </p>
       </div>
     </div>
   );

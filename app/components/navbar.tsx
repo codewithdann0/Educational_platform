@@ -17,7 +17,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center p-4 max-w-screen-xl mx-auto">
         {/* Logo on the left */}
         <Link href="/" className="text-2xl font-bold black-white">
-          EduPlatform
+          eduPlat
         </Link>
 
         {/* Hamburger Icon for Mobile */}
