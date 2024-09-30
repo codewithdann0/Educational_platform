@@ -1,7 +1,7 @@
 import Navbar from './components/navbar'; // Ensure correct casing for the component name
 import Link from 'next/link'; // Correct the import for Link from Next.js
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Import the desired icons
-
+import Footer from './components/footer';
 export default function Home() {
   return (
     <div>
@@ -24,25 +24,7 @@ export default function Home() {
       </div>
 
       {/* Footer Section */}
-      <footer className="bg-gray-800 text-white py-6">
-        <div className="container mx-auto text-center">
-          <p className="mb-4">© 2024 Your Educational Platform. All Rights Reserved.</p>
-          <div className="flex justify-center space-x-4">
-            <Link href="https://facebook.com" target="_blank" className="text-gray-400 hover:text-white transition duration-200">
-              <FaFacebookF size={24} />
-            </Link>
-            <Link href="https://twitter.com" target="_blank" className="text-gray-400 hover:text-white transition duration-200">
-              <FaTwitter size={24} />
-            </Link>
-            <Link href="https://instagram.com" target="_blank" className="text-gray-400 hover:text-white transition duration-200">
-              <FaInstagram size={24} />
-            </Link>
-            <Link href="https://linkedin.com" target="_blank" className="text-gray-400 hover:text-white transition duration-200">
-              <FaLinkedin size={24} />
-            </Link>
-          </div>
-        </div>
-      </footer>
+    <Footer/>
     </div>
   );
 }
