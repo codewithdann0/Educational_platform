@@ -1,3 +1,30 @@
+Educational Platform
+Overview
+The Educational Platform is a web application designed for online learning, providing an interactive space for students and instructors to connect, manage courses, and enhance the learning experience.
+
+Features
+User authentication using Firebase
+Course creation and management
+Student enrollment in courses
+User-friendly dashboard for students and instructors
+Search functionality for easy course discovery
+Tech Stack
+Frontend: Next.js (latest version)
+Database: SQLite
+Authentication: Firebase
+Icons: React Icons
+Getting Started
+Clone the repository: git clone <repository-url>
+Install dependencies: Run npm install or yarn install.
+Set up Firebase: Configure your Firebase project and add your credentials.
+Run the application: Use npm run dev or yarn dev to start the development server.
+Usage
+Sign up or log in to access platform features.
+Browse and enroll in courses.
+Access your dashboard to manage your courses.
+Contributing
+Contributions are welcome! Please fork the repository and submit a pull request for any changes.
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started
