@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
-  const [username] = useState("Daniel Tigistu");
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -12,10 +11,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav   className="bg-white h-18 p-4  fixed w-screen"> {/* Increased height */}
-      <div className="container mx-auto flex items-center justify-between ">
+    <nav className="bg-white h-16 p-4 fixed w-screen shadow"> {/* Height and shadow */}
+      <div className="container mx-auto flex items-center justify-between">
         {/* Logo on the left */}
-        <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-green-500 transition duration-200">
+        <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-green-500 transition duration-200 ml-0">
           eduPlat
         </Link>
 
@@ -40,9 +39,7 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links (hidden on mobile) */}
-        <div className={`md:flex md:flex-row md:space-x-8 hidden md:static w-full md:w-auto transition-all duration-300 ${
-          isMobileMenuOpen ? 'top-12' : '-top-40'
-        }`}>
+        <div className={`md:flex md:flex-row md:space-x-8 hidden md:static w-full md:w-auto transition-all duration-300 ${isMobileMenuOpen ? 'top-12' : '-top-40'}`}>
           <Link href="/" className="block text-gray-800 hover:text-green-500 py-3 px-4 transition duration-200 ease-in-out text-lg">
             Home
           </Link>
@@ -51,21 +48,20 @@ const Navbar = () => {
           </Link>
         </div>
 
-        {/* Search Bar and User Information (hidden on mobile) */}
-        <div className="md:flex items-center space-x-4 ml-auto">
-          <div className="relative hidden md:block">
-             <div className="hidden md:block">
-            <Link href="/signin" className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out">
-              Login
-            </Link>
-          </div>
-          </div>
-
+        {/* User Information and Login Button (hidden on mobile) */}
+        <div className="md:flex items-center space-x-4 ml-auto mr-2"> {/* Added mr-2 to reduce the right gap */}
           {/* Login Button */}
-         
+          <Link href="/signin" className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out">
+            Login
+          </Link>
+
+          {/* Profile Icon */}
+          <Link href="/profile" className="text-gray-800 hover:text-green-500 transition duration-200">
+            <FaUserCircle className="h-8 w-8" /> {/* Circular profile icon */}
+          </Link>
         </div>
       </div>
-      <hr className="mx-auto  border-gray-300" /> {/* Centered line under the navbar */}
+      <hr className="mx-auto border-gray-300" /> {/* Centered line under the navbar */}
     </nav>
   );
 };
