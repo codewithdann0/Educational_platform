@@ -12,10 +12,10 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-black p-4">
+    <nav   className="bg-white h-24 p-4"> {/* Increased height */}
       <div className="container mx-auto flex items-center justify-between">
         {/* Logo on the left */}
-        <Link href="/" className="text-3xl font-bold text-black hover:text-green-500 transition duration-200">
+        <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-green-500 transition duration-200">
           eduPlat
         </Link>
 
@@ -24,7 +24,7 @@ const Navbar = () => {
           <button className="focus:outline-none">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6 text-white"
+              className="h-6 w-6 text-gray-800"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -40,13 +40,13 @@ const Navbar = () => {
         </div>
 
         {/* Navigation Links (hidden on mobile) */}
-        <div className={`md:flex md:flex-row md:space-x-8 hidden md:static bg-gray-800 w-full md:w-auto transition-all duration-300 ${
+        <div className={`md:flex md:flex-row md:space-x-8 hidden md:static w-full md:w-auto transition-all duration-300 ${
           isMobileMenuOpen ? 'top-12' : '-top-40'
         }`}>
-          <Link href="/" className="block text-black hover:text-green-500 py-3 px-4 transition duration-200 ease-in-out text-lg">
+          <Link href="/" className="block text-gray-800 hover:text-green-500 py-3 px-4 transition duration-200 ease-in-out text-lg">
             Home
           </Link>
-          <Link href="/catalog" className="block text-black hover:text-green-500 py-3 px-4 transition duration-200 ease-in-out text-lg">
+          <Link href="/catalog" className="block text-gray-800 hover:text-green-500 py-3 px-4 transition duration-200 ease-in-out text-lg">
             Catalog
           </Link>
         </div>
@@ -54,19 +54,18 @@ const Navbar = () => {
         {/* Search Bar and User Information (hidden on mobile) */}
         <div className="md:flex items-center space-x-4 ml-auto">
           <div className="relative hidden md:block">
-            <input
-              type="text"
-              placeholder="Search..."
-              className="border border-gray-400 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500 transition duration-200 ease-in-out"
-            />
+             <div className="hidden md:block">
+            <Link href="/signin" className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out">
+              Login
+            </Link>
           </div>
-          <div className="flex items-center">
-            <FaUserCircle className=" w-8 h-8" />
-            <span className="ml-2  font-semibold">{username}</span>
           </div>
+
+          {/* Login Button */}
+         
         </div>
       </div>
-      <hr className="mx-auto w-11/12 border-gray-700" /> {/* Centered line under the navbar */}
+      <hr className="mx-auto  border-gray-300" /> {/* Centered line under the navbar */}
     </nav>
   );
 };

@@ -3,3 +3,8 @@
 @tailwind utilities;
 
 
+#nav-bar{
+    position: fixed;
+    height:  60px;
+    width: 100%;
+}
