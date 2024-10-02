@@ -51,7 +51,7 @@ const Navbar = () => {
         {/* User Information and Login Button (hidden on mobile) */}
         <div className="md:flex items-center space-x-4 ml-auto mr-2"> {/* Added mr-2 to reduce the right gap */}
           {/* Login Button */}
-          <Link href="/signin" className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out">
+          <Link href="/signup" className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition duration-200 ease-in-out">
             Login
           </Link>
 

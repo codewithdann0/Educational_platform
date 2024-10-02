@@ -1,9 +1,8 @@
 // pages/signup.tsx
 import { useState } from 'react';
 import { signUp } from '../lib/auth';
-import { db } from '../lib/firebase'; // Import the Firestore instance
+import { useRouter } from 'next/router'; // Import useRouter for navigation
 import Link from 'next/link';
-import { doc, setDoc } from 'firebase/firestore'; // Firestore functions
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +11,7 @@ const SignUp = () => {
   const [phone, setPhone] = useState(''); // New state for phone
   const [profilePicture, setProfilePicture] = useState<File | null>(null); // New state for profile picture
   const [error, setError] = useState('');
+  const router = useRouter(); // Initialize useRouter
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,8 +19,11 @@ const SignUp = () => {
 
     try {
       const user = await signUp(email, password, fullName, phone, profilePicture); // Pass profile picture
-      // Redirect or perform other actions after successful sign-up
-      // Example: window.location.href = '/'; // Redirect to the homepage
+      
+      // Wait for a moment to ensure the user is fully signed up
+      setTimeout(() => {
+        router.push('/course'); // Redirect to /course after sign-up
+      }, 100); // Adjust the delay as necessary
     } catch (error) {
       setError(error instanceof Error ? error.message : 'An unexpected error occurred.');
     }

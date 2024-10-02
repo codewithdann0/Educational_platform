@@ -39,6 +39,19 @@ export const signUp = async (
       role: 'student', // Optional: Default role
     });
 
+    // Optionally, create an initial course document (commented out; you can uncomment it later)
+    /*
+    await setDoc(doc(db, 'courses', user.uid), {
+      courseId: user.uid, // or auto-generated ID logic
+      title: 'Introduction to Programming', // Default course title
+      description: 'Learn the basics of programming using JavaScript.',
+      instructorId: user.uid, // Assuming user is the instructor
+      videoUrl: 'https://www.youtube.com/watch?v=example', // Default video URL
+      thumbnailUrl: '', // You can set this later if needed
+      createdAt: new Date(), // Timestamp for course creation
+    });
+    */
+
     return user;
   } catch (error) {
     const firebaseError = error as AuthError; // Type assertion
