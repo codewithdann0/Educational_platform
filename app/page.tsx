@@ -1,3 +1,4 @@
+import Footer from './Footer'
 import Navbar from './Navbar'; // Ensure correct casing for the component name
 import Link from 'next/link'; // Correct the import for Link from Next.js
 import { FaFacebookF, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'; // Import the desired icons
@@ -5,8 +6,9 @@ export default function Home() {
   return (
     <div>
       <Navbar />
-      <div className='bg-black-700 text-white text-center py-4 mt-9'>
-        ✨ Welcome to your new Dashboard ✨ What's New?
+      <div className='bg-black-700 text-white text-center py-4 '>
+
+        <h1 className='mt-20 text-black'>✨ Welcome to your new Dashboard ✨ What's New?</h1>
       </div>
       <div className="bg-white p-6">
         {/* Hero Section */}
@@ -22,7 +24,7 @@ export default function Home() {
         {/* Other content goes here... */}
       </div>
 
-      {/* Footer Section */}
+      <Footer/>
     </div>
   );
 }

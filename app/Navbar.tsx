@@ -12,8 +12,8 @@ const Navbar = () => {
   };
 
   return (
-    <nav   className="bg-white h-24 p-4"> {/* Increased height */}
-      <div className="container mx-auto flex items-center justify-between">
+    <nav   className="bg-white h-18 p-4  fixed w-screen"> {/* Increased height */}
+      <div className="container mx-auto flex items-center justify-between ">
         {/* Logo on the left */}
         <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-green-500 transition duration-200">
           eduPlat
