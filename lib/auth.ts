@@ -40,7 +40,7 @@ export const signUp = async (
     });
 
     // Optionally, create an initial course document (commented out; you can uncomment it later)
-    /*
+    
     await setDoc(doc(db, 'courses', user.uid), {
       courseId: user.uid, // or auto-generated ID logic
       title: 'Introduction to Programming', // Default course title
@@ -50,7 +50,7 @@ export const signUp = async (
       thumbnailUrl: '', // You can set this later if needed
       createdAt: new Date(), // Timestamp for course creation
     });
-    */
+    
 
     return user;
   } catch (error) {
