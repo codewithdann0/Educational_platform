@@ -1,46 +1,12 @@
 // app/courses/page.tsx
-'use client'
+'use client';
 import React, { useState } from 'react';
 import Navbar from '../Navbar';
 
+// this is sample data until the database works 
 const courses = [
   {
     id: 1,
-    name: 'Data Analyst',
-    imageUrl: 'https://www.udacity.com/_next/image?url=https%3A%2F%2Fcdn.sanity.io%2Fimages%2Ftlr8oxjg%2Fproduction%2Ffdf314615dab9455b1e163ae8ab698abde8453c8-1456x816.png',
-  },
-  {
-    id: 2,
-    name: 'Course 2',
-    imageUrl: 'https://via.placeholder.com/200x400',
-  },
-  {
-    id: 3,
-    name: 'Course 3',
-    imageUrl: 'https://via.placeholder.com/200x400',
-  },
-  {
-    id: 4,
-    name: 'Course 4',
-    imageUrl: 'https://via.placeholder.com/200x400',
-  },
-  {
-    id: 5,
-    name: 'Course 5',
-    imageUrl: 'https://via.placeholder.com/200x400',
-  },
-  {
-    id: 6,
-    name: 'Course 6',
-    imageUrl: 'https://via.placeholder.com/200x400',
-  },
-  {
-    id: 7,
-    name: 'Course 7',
-    imageUrl: 'https://via.placeholder.com/200x400',
-  },
-  {
-    id: 8,
     name: 'Harvard CS50’s Artificial Intelligence with Python – Full University Course', // New course for the YouTube video
     videoId: '5NgNicANyqM', // YouTube video ID
     thumbnailUrl: 'https://img.youtube.com/vi/5NgNicANyqM/hqdefault.jpg', // Thumbnail URL
@@ -63,7 +29,7 @@ const CoursesPage = () => {
           {courses.map((course) => (
             <div key={course.id} className="flex flex-col items-center bg-white shadow-lg rounded-lg p-4 w-56"> {/* Set a fixed width for cards */}
               <img 
-                src={course.imageUrl || course.thumbnailUrl} // Use the course image or thumbnail
+                src={course.thumbnailUrl} // Use the course image or thumbnail
                 alt={course.name} 
                 className="h-full w-full object-fill mb-4 rounded" // Set height to 600px
               />
@@ -71,8 +37,6 @@ const CoursesPage = () => {
             </div>
           ))}
         </div>
-
-        {/* YouTube Course Section */}
         <div className="flex flex-col items-center mt-10">
           <h2 className="text-xl font-semibold mb-4">Watch Our Featured Course</h2>
           <div className="relative">
@@ -81,7 +45,7 @@ const CoursesPage = () => {
                 <iframe
                   width="100%"
                   height="500px"
-                  src={`https://www.youtube.com/embed/${courses[7].videoId}?autoplay=1`} // Autoplay the video
+                  src={`https://www.youtube.com/embed/${courses[0].videoId}?autoplay=1`} // Autoplay the video
                   title="Featured Course Video"
                   frameBorder="0"
                   allowFullScreen
@@ -90,8 +54,8 @@ const CoursesPage = () => {
             ) : (
               <a onClick={handlePlayClick} className="cursor-pointer">
                 <img 
-                  src={courses[7].thumbnailUrl} 
-                  alt={`${courses[7].name} Thumbnail`} 
+                  src={courses[0].thumbnailUrl} // Use courses[0] for thumbnail
+                  alt={`${courses[0].name} Thumbnail`} 
                   className="rounded-lg mb-4" // Thumbnail image
                 />
                 {/* Play Button Overlay */}

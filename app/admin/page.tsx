@@ -2,73 +2,68 @@
 
 import React, { useState, useEffect } from 'react';
 import { db } from '@/lib/firebase'; // Import Firestore
-import { collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from 'firebase/firestore'; 
-import { useRouter } from 'next/navigation'; // Use the correct import for Next.js
+import { createCourse, getCourses, updateCourse, deleteCourse } from '@/lib/crud'; // Import CRUD operations
+import { useRouter } from 'next/navigation';
 
-// Admin Page Component
 const AdminPage = () => {
   const [courses, setCourses] = useState<any[]>([]);
   const [formData, setFormData] = useState({ 
     name: '', 
-    description: '', // Add description field
-    videoUrl: '' // Add video URL field
+    description: '', 
+    videoUrl: '', 
+    thumbnailUrl: '' 
   });
   const [editCourseId, setEditCourseId] = useState<string | null>(null);
+  const router = useRouter();
 
   // Fetch courses from Firestore
   const fetchCourses = async () => {
-    const coursesCollection = collection(db, 'courses');
-    const courseSnapshot = await getDocs(coursesCollection);
-    const coursesList = courseSnapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-    setCourses(coursesList);
+    const fetchedCourses = await getCourses();
+    setCourses(fetchedCourses);
   };
 
   useEffect(() => {
     fetchCourses();
   }, []);
 
-  // Handle form input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission (add or update)
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (editCourseId) {
       // Update existing course
-      const courseDoc = doc(db, 'courses', editCourseId);
-      await updateDoc(courseDoc, formData);
+      await updateCourse(editCourseId, formData);
       setEditCourseId(null);
     } else {
       // Add new course
-      await addDoc(collection(db, 'courses'), {
-        ...formData, // Spread the formData to include all fields
-        createdAt: new Date(), // Optional: Add created timestamp
+      await createCourse({
+        ...formData,
+        createdAt: new Date(),
       });
     }
 
-    setFormData({ name: '', description: '', videoUrl: '' }); // Reset form data
+    setFormData({ name: '', description: '', videoUrl: '', thumbnailUrl: '' }); // Reset form data
     fetchCourses(); // Refresh the list after adding/updating
   };
 
-  // Handle edit action
   const handleEdit = (courseId: string) => {
     const course = courses.find((c) => c.id === courseId);
     if (course) {
       setFormData({ 
         name: course.name, 
-        description: course.description, // Set description
-        videoUrl: course.videoUrl, // Set video URL
+        description: course.description,
+        videoUrl: course.videoUrl,
+        thumbnailUrl: course.thumbnailUrl 
       });
       setEditCourseId(courseId);
     }
   };
 
-  // Handle delete action
   const handleDelete = async (courseId: string) => {
-    await deleteDoc(doc(db, 'courses', courseId));
+    await deleteCourse(courseId);
     fetchCourses(); // Refresh the list after deletion
   };
 
@@ -110,6 +105,17 @@ const AdminPage = () => {
             required
           />
         </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium">Thumbnail URL</label>
+          <input
+            type="text"
+            name="thumbnailUrl"
+            value={formData.thumbnailUrl}
+            onChange={handleChange}
+            className="border border-gray-300 p-2 rounded w-full"
+            required
+          />
+        </div>
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
           {editCourseId ? 'Update Course' : 'Add Course'}
         </button>
@@ -121,6 +127,7 @@ const AdminPage = () => {
           <tr>
             <th className="px-6 py-2">Name</th>
             <th className="px-6 py-2">Description</th>
+            <th className="px-6 py-2">Thumbnail</th>
             <th className="px-6 py-2">Video</th>
             <th className="px-6 py-2">Actions</th>
           </tr>
@@ -130,6 +137,9 @@ const AdminPage = () => {
             <tr key={course.id}>
               <td className="px-6 py-4">{course.name}</td>
               <td className="px-6 py-4">{course.description}</td>
+              <td className="px-6 py-4">
+                <img src={course.thumbnailUrl} alt={course.name} className="h-16 w-16 object-cover" />
+              </td>
               <td className="px-6 py-4">
                 <a href={course.videoUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
                   Watch Video
