@@ -129,50 +129,36 @@ const AdminPage = () => {
         </button>
       </form>
 
-      {/* List of courses */}
-      <table className="min-w-full bg-white">
-        <thead>
-          <tr>
-            <th className="px-6 py-2">Name</th>
-            <th className="px-6 py-2">Image</th>
-            <th className="px-6 py-2">Video</th>
-            <th className="px-6 py-2">Thumbnail</th>
-            <th className="px-6 py-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courses.map((course) => (
-            <tr key={course.id}>
-              <td className="px-6 py-4">{course.name}</td>
-              <td className="px-6 py-4">
-                <img src={course.imageUrl} alt={course.name} className="h-12 w-12 object-cover" />
-              </td>
-              <td className="px-6 py-4">
+      {/* List of courses in a card layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {courses.map((course) => (
+          <div key={course.id} className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
+            <img src={course.thumbnailUrl} alt={course.name} className="h-40 w-full object-cover" />
+            <div className="p-4">
+              <h2 className="text-lg font-semibold">{course.name}</h2>
+              <div className="mt-2">
                 <a href={course.videoUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
                   Watch Video
                 </a>
-              </td>
-              <td className="px-6 py-4">
-                <img src={course.thumbnailUrl} alt={course.name} className="h-12 w-12 object-cover" />
-              </td>
-              <td className="px-6 py-4">
+              </div>
+              <div className="mt-4 flex justify-between">
                 <button
                   onClick={() => handleEdit(course.id)}
-                  className="bg-yellow-500 text-white px-4 py-2 rounded mr-2"
+                  className="bg-yellow-500 text-white px-3 py-1 rounded"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(course.id)}
-                  className="bg-red-500 text-white px-4 py-2 rounded"
+                  className="bg-red-500 text-white px-3 py-1 rounded"
                 >
                   Delete
                 </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
