@@ -8,7 +8,12 @@ import { useRouter } from 'next/navigation'; // Use the correct import for Next.
 // Admin Page Component
 const AdminPage = () => {
   const [courses, setCourses] = useState<any[]>([]);
-  const [formData, setFormData] = useState({ name: '', imageUrl: '' });
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    imageUrl: '', 
+    videoUrl: '', // Add video URL field
+    thumbnailUrl: '' // Add thumbnail URL field
+  });
   const [editCourseId, setEditCourseId] = useState<string | null>(null);
 
   // Fetch courses from Firestore
@@ -39,10 +44,13 @@ const AdminPage = () => {
       setEditCourseId(null);
     } else {
       // Add new course
-      await addDoc(collection(db, 'courses'), formData);
+      await addDoc(collection(db, 'courses'), {
+        ...formData, // Spread the formData to include all fields
+        createdAt: new Date(), // Optional: Add created timestamp
+      });
     }
 
-    setFormData({ name: '', imageUrl: '' });
+    setFormData({ name: '', imageUrl: '', videoUrl: '', thumbnailUrl: '' }); // Reset form data
     fetchCourses(); // Refresh the list after adding/updating
   };
 
@@ -50,7 +58,12 @@ const AdminPage = () => {
   const handleEdit = (courseId: string) => {
     const course = courses.find((c) => c.id === courseId);
     if (course) {
-      setFormData({ name: course.name, imageUrl: course.imageUrl });
+      setFormData({ 
+        name: course.name, 
+        imageUrl: course.imageUrl, 
+        videoUrl: course.videoUrl, // Set video URL
+        thumbnailUrl: course.thumbnailUrl // Set thumbnail URL
+      });
       setEditCourseId(courseId);
     }
   };
@@ -89,6 +102,28 @@ const AdminPage = () => {
             required
           />
         </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium">Video URL</label>
+          <input
+            type="text"
+            name="videoUrl"
+            value={formData.videoUrl}
+            onChange={handleChange}
+            className="border border-gray-300 p-2 rounded w-full"
+            required
+          />
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium">Thumbnail URL</label>
+          <input
+            type="text"
+            name="thumbnailUrl"
+            value={formData.thumbnailUrl}
+            onChange={handleChange}
+            className="border border-gray-300 p-2 rounded w-full"
+            required
+          />
+        </div>
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
           {editCourseId ? 'Update Course' : 'Add Course'}
         </button>
@@ -100,6 +135,8 @@ const AdminPage = () => {
           <tr>
             <th className="px-6 py-2">Name</th>
             <th className="px-6 py-2">Image</th>
+            <th className="px-6 py-2">Video</th>
+            <th className="px-6 py-2">Thumbnail</th>
             <th className="px-6 py-2">Actions</th>
           </tr>
         </thead>
@@ -109,6 +146,14 @@ const AdminPage = () => {
               <td className="px-6 py-4">{course.name}</td>
               <td className="px-6 py-4">
                 <img src={course.imageUrl} alt={course.name} className="h-12 w-12 object-cover" />
+              </td>
+              <td className="px-6 py-4">
+                <a href={course.videoUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
+                  Watch Video
+                </a>
+              </td>
+              <td className="px-6 py-4">
+                <img src={course.thumbnailUrl} alt={course.name} className="h-12 w-12 object-cover" />
               </td>
               <td className="px-6 py-4">
                 <button
