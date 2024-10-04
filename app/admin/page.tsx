@@ -10,9 +10,8 @@ const AdminPage = () => {
   const [courses, setCourses] = useState<any[]>([]);
   const [formData, setFormData] = useState({ 
     name: '', 
-    imageUrl: '', 
-    videoUrl: '', // Add video URL field
-    thumbnailUrl: '' // Add thumbnail URL field
+    description: '', // Add description field
+    videoUrl: '' // Add video URL field
   });
   const [editCourseId, setEditCourseId] = useState<string | null>(null);
 
@@ -29,7 +28,7 @@ const AdminPage = () => {
   }, []);
 
   // Handle form input change
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
@@ -50,7 +49,7 @@ const AdminPage = () => {
       });
     }
 
-    setFormData({ name: '', imageUrl: '', videoUrl: '', thumbnailUrl: '' }); // Reset form data
+    setFormData({ name: '', description: '', videoUrl: '' }); // Reset form data
     fetchCourses(); // Refresh the list after adding/updating
   };
 
@@ -60,9 +59,8 @@ const AdminPage = () => {
     if (course) {
       setFormData({ 
         name: course.name, 
-        imageUrl: course.imageUrl, 
+        description: course.description, // Set description
         videoUrl: course.videoUrl, // Set video URL
-        thumbnailUrl: course.thumbnailUrl // Set thumbnail URL
       });
       setEditCourseId(courseId);
     }
@@ -92,11 +90,10 @@ const AdminPage = () => {
           />
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium">Image URL</label>
-          <input
-            type="text"
-            name="imageUrl"
-            value={formData.imageUrl}
+          <label className="block text-sm font-medium">Description</label>
+          <textarea
+            name="description"
+            value={formData.description}
             onChange={handleChange}
             className="border border-gray-300 p-2 rounded w-full"
             required
@@ -113,52 +110,49 @@ const AdminPage = () => {
             required
           />
         </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium">Thumbnail URL</label>
-          <input
-            type="text"
-            name="thumbnailUrl"
-            value={formData.thumbnailUrl}
-            onChange={handleChange}
-            className="border border-gray-300 p-2 rounded w-full"
-            required
-          />
-        </div>
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
           {editCourseId ? 'Update Course' : 'Add Course'}
         </button>
       </form>
 
-      {/* List of courses in a card layout */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {courses.map((course) => (
-          <div key={course.id} className="border border-gray-300 rounded-lg overflow-hidden shadow-lg">
-            <img src={course.thumbnailUrl} alt={course.name} className="h-40 w-full object-cover" />
-            <div className="p-4">
-              <h2 className="text-lg font-semibold">{course.name}</h2>
-              <div className="mt-2">
+      {/* List of courses */}
+      <table className="min-w-full bg-white">
+        <thead>
+          <tr>
+            <th className="px-6 py-2">Name</th>
+            <th className="px-6 py-2">Description</th>
+            <th className="px-6 py-2">Video</th>
+            <th className="px-6 py-2">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {courses.map((course) => (
+            <tr key={course.id}>
+              <td className="px-6 py-4">{course.name}</td>
+              <td className="px-6 py-4">{course.description}</td>
+              <td className="px-6 py-4">
                 <a href={course.videoUrl} target="_blank" rel="noopener noreferrer" className="text-blue-500">
                   Watch Video
                 </a>
-              </div>
-              <div className="mt-4 flex justify-between">
+              </td>
+              <td className="px-6 py-4">
                 <button
                   onClick={() => handleEdit(course.id)}
-                  className="bg-yellow-500 text-white px-3 py-1 rounded"
+                  className="bg-yellow-500 text-white px-4 py-2 rounded mr-2"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleDelete(course.id)}
-                  className="bg-red-500 text-white px-3 py-1 rounded"
+                  className="bg-red-500 text-white px-4 py-2 rounded"
                 >
                   Delete
                 </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
