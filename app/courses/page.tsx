@@ -11,6 +11,12 @@ const courses = [
     videoId: '5NgNicANyqM', // YouTube video ID
     thumbnailUrl: 'https://img.youtube.com/vi/5NgNicANyqM/hqdefault.jpg', // Thumbnail URL
   },
+  {
+    id: 2,
+    name: 'Harvard CS50’s Artificial Intelligence with Python – Full University Course', // New course for the YouTube video
+    videoId: '5NgNicANyqM', // YouTube video ID
+    thumbnailUrl: 'https://img.youtube.com/vi/5NgNicANyqM/hqdefault.jpg', // Thumbnail URL
+  },
 ];
 
 const CoursesPage = () => {
