@@ -18,8 +18,12 @@ const AdminPage = () => {
 
   // Fetch courses from Firestore
   const fetchCourses = async () => {
-    const fetchedCourses = await getCourses();
-    setCourses(fetchedCourses);
+    try {
+      const fetchedCourses = await getCourses();
+      setCourses(fetchedCourses);
+    } catch (error) {
+      console.error('Error fetching courses:', error);
+    }
   };
 
   useEffect(() => {
@@ -32,21 +36,27 @@ const AdminPage = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    try {
+      if (editCourseId) {
+        // Update existing course
+        await updateCourse(editCourseId, { ...formData });
+        console.log(`Course with ID ${editCourseId} updated successfully.`);
+        setEditCourseId(null);
+      } else {
+        // Add new course
+        const courseId = await createCourse({
+          ...formData,
+          createdAt: new Date(),
+        });
+        console.log(`New course added with ID: ${courseId}`);
+      }
 
-    if (editCourseId) {
-      // Update existing course
-      await updateCourse(editCourseId, formData);
-      setEditCourseId(null);
-    } else {
-      // Add new course
-      await createCourse({
-        ...formData,
-        createdAt: new Date(),
-      });
+      setFormData({ name: '', description: '', videoUrl: '', thumbnailUrl: '' }); // Reset form data
+      await fetchCourses(); // Refresh the list after adding/updating
+    } catch (error) {
+      console.error('Error adding/updating course:', error); // Log error
     }
-
-    setFormData({ name: '', description: '', videoUrl: '', thumbnailUrl: '' }); // Reset form data
-    fetchCourses(); // Refresh the list after adding/updating
   };
 
   const handleEdit = (courseId: string) => {
@@ -63,8 +73,13 @@ const AdminPage = () => {
   };
 
   const handleDelete = async (courseId: string) => {
-    await deleteCourse(courseId);
-    fetchCourses(); // Refresh the list after deletion
+    try {
+      await deleteCourse(courseId);
+      console.log(`Course with ID ${courseId} deleted successfully.`);
+      await fetchCourses(); // Refresh the list after deletion
+    } catch (error) {
+      console.error('Error deleting course:', error); // Log error
+    }
   };
 
   return (

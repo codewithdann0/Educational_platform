@@ -61,7 +61,7 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      <hr className="mx-auto border-gray-300" /> {/* Centered line under the navbar */}
+       {/* Centered line under the navbar */}
     </nav>
   );
 };
