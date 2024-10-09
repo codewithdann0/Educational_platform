@@ -5,11 +5,13 @@ import { FaUserCircle } from 'react-icons/fa';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
   };
-
+  const toggleDropdown = () => {
+    setDropdownOpen(!isDropdownOpen); // Toggle dropdown visibility
+  };
   return (
     <nav className="bg-white h-16 p-4 fixed w-screen shadow"> {/* Height and shadow */}
       <div className="container mx-auto flex items-center justify-between">
@@ -56,9 +58,29 @@ const Navbar = () => {
           </Link>
 
           {/* Profile Icon */}
-          <Link href="/profile" className="text-gray-800 hover:text-green-500 transition duration-200">
-            <FaUserCircle className="h-8 w-8" /> {/* Circular profile icon */}
-          </Link>
+          <div className="relative">
+            <button onClick={toggleDropdown} className="text-gray-800 hover:text-green-500 transition duration-200">
+              <FaUserCircle className="h-8 w-8" /> {/* Circular profile icon */}
+            </button>
+            {/* Dropdown Menu */}
+            {isDropdownOpen && (
+              <div className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded shadow-lg z-10">
+                <div className="py-2">
+                  <p className="px-4 py-2 text-gray-800">User Information</p>
+                  <hr className="border-gray-200" />
+                  <Link href="/profile" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-200">
+                    View Profile
+                  </Link>
+                  <Link href="/settings" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-200">
+                    Settings
+                  </Link>
+                  <Link href="/logout" className="block px-4 py-2 text-gray-800 hover:bg-gray-100 transition duration-200">
+                    Logout
+                  </Link>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
        {/* Centered line under the navbar */}
