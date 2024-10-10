@@ -9,6 +9,8 @@ export default function Home() {
 
         <h1 className='mt-20 text-black'>✨ Welcome to your new Dashboard ✨ What's New?</h1>
       </div>
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTGhTxJFopu4FK208APUuhXHFgeJG5_nGbbjA&s" alt=""
+       className='mr-auto ml-auto mt-9' />
       <div className="bg-white p-6">
         {/* Hero Section */}
         <div className="py-20 text-center">
