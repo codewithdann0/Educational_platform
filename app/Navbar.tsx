@@ -15,8 +15,8 @@ const Navbar = () => {
   return (
     <nav className="bg-white h-16 p-4 fixed w-screen shadow"> {/* Height and shadow */}
       <div className="container mx-auto flex items-center justify-between">
-        {/* Logo on the left */}
-        <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-green-500 transition duration-200 ml-0">
+        {/* Logo on the left with space added between EduPlat and Home */}
+        <Link href="/" className="text-3xl font-bold text-gray-800 hover:text-green-500 transition duration-200 mr-10">
           eduPlat
         </Link>
 
@@ -83,7 +83,6 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-       {/* Centered line under the navbar */}
     </nav>
   );
 };

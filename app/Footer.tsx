@@ -12,7 +12,7 @@ const Footer = () => {
           <form className="flex space-x-2">
             <input
               type="email"
-              placeholder="Type Your Message"
+              placeholder="Email "
               className="p-2 rounded border focus:outline-none focus:ring-2 focus:ring-green-400"
             />
             <button className="bg-white text-black p-2 rounded border-blue-700 hover:bg-blue-700 transition duration-400">
